@@ -1,6 +1,6 @@
 ﻿namespace AppCalculadora
 {
-    partial class Form1
+    partial class FormCalculadora
     {
         /// <summary>
         /// Required designer variable.
@@ -300,7 +300,7 @@
             this.btIgual.UseVisualStyleBackColor = false;
             this.btIgual.Click += new System.EventHandler(this.btIgual_Click);
             // 
-            // Form1
+            // FormCalculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -325,7 +325,7 @@
             this.Controls.Add(this.txtPantalla);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormCalculadora";
             this.Text = "Calculadora";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

@@ -10,12 +10,15 @@ using System.Windows.Forms;
 
 namespace AppCalculadora
 {
-    public partial class Form1 : Form
+    public partial class FormCalculadora : Form
     {
         public Double num1;
         public Double num2 = 0;
         public string varOperador = "";
-        public Form1()
+        public string varTexto = "";
+        public string varResultado = "";
+
+        public FormCalculadora()
         {
             InitializeComponent();
         }
@@ -24,125 +27,65 @@ namespace AppCalculadora
         {
 
         }
-
-        private void btNum0_Click(object sender, EventArgs e)
+        private void BotonNumero(string numero)
         {
-            if (txtPantalla.Text == "0")
+            if (txtPantalla.Text == "0" || txtPantalla.Text == "Ingrese otro número")
             {
-                txtPantalla.Text = "0";
+                txtPantalla.Text = Convert.ToString(numero);
             }
             else
             {
-                txtPantalla.Text += "0";
+                txtPantalla.Text += Convert.ToString(numero);
             }
+        }
+        private void btNum0_Click(object sender, EventArgs e)
+        {
+            BotonNumero("0");
         }
 
         private void btNum1_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "1";
-            }
-            else
-            {
-                txtPantalla.Text += "1";
-            }
+            BotonNumero("1");
         }
 
         private void btNum2_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "2";
-            }
-            else
-            {
-                txtPantalla.Text += "2";
-            }
+            BotonNumero("2");
         }
 
         private void btNum3_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "3";
-            }
-            else
-            {
-                txtPantalla.Text += "3";
-            }
+            BotonNumero("3");
         }
 
         private void btNum4_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "4";
-            }
-            else
-            {
-                txtPantalla.Text += "4";
-            }
+            BotonNumero("4");
         }
 
         private void btNum5_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "5";
-            }
-            else
-            {
-                txtPantalla.Text += "5";
-            }
+            BotonNumero("5");
         }
 
         private void btNum6_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "6";
-            }
-            else
-            {
-                txtPantalla.Text += "6";
-            }
+            BotonNumero("6");
         }
 
         private void btNum7_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "7";
-            }
-            else
-            {
-                txtPantalla.Text += "7";
-            }
+            BotonNumero("7");
         }
 
         private void btNum8_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "8";
-            }
-            else
-            {
-                txtPantalla.Text += "8";
-            }
+            BotonNumero("8");
         }
 
         private void btNum9_Click(object sender, EventArgs e)
         {
-            if (txtPantalla.Text == "0")
-            {
-                txtPantalla.Text = "9";
-            }
-            else
-            {
-                txtPantalla.Text += "9";
-            }
+            BotonNumero("9");
         }
 
         private void btPunto_Click(object sender, EventArgs e)
@@ -161,34 +104,34 @@ namespace AppCalculadora
             num1 = 0;
             num2 = 0;
         }
-
-        private void btSum_Click(object sender, EventArgs e)
+        private void SignoCalcular()
         {
             num1 = Convert.ToDouble(txtPantalla.Text);
             txtPantalla.Clear();
-            //txtPantalla.Text = "Ingrese la otra cantidad";
+            txtPantalla.Text = "Ingrese otro número";
+        }
+        private void btSum_Click(object sender, EventArgs e)
+        {
             varOperador = "+";
+            SignoCalcular();
         }
 
         private void btRest_Click(object sender, EventArgs e)
         {
-            num1 = Convert.ToDouble(txtPantalla.Text);
-            txtPantalla.Clear();
             varOperador = "-";
+            SignoCalcular();
         }
 
         private void btMult_Click(object sender, EventArgs e)
         {
-            num1 = Convert.ToDouble(txtPantalla.Text);
-            txtPantalla.Clear();
             varOperador = "*";
+            SignoCalcular();
         }
 
         private void btDiv_Click(object sender, EventArgs e)
         {
-            num1 = Convert.ToDouble(txtPantalla.Text);
-            txtPantalla.Clear();
             varOperador = "/";
+            SignoCalcular();
         }
 
         private void btIgual_Click(object sender, EventArgs e)
@@ -197,29 +140,39 @@ namespace AppCalculadora
             double num2 = Convert.ToDouble(txtPantalla.Text);
             switch (varOperador)
             {
-            case "+":
-                txtPantalla.Text = Convert.ToString(num1 + num2);
-            break;
-            case "-":
-                txtPantalla.Text = Convert.ToString(num1 - num2);
-            break;
-            case "*":
-                txtPantalla.Text = Convert.ToString(num1 * num2);
-            break;
-            case "/":
-            // Manejar división por cero
-            if (num2 != 0)
+                case "+":
+                    txtPantalla.Text = Convert.ToString(num1 + num2);
+                    break;
+                case "-":
+                    txtPantalla.Text = Convert.ToString(num1 - num2);
+                    break;
+                case "*":
+                    txtPantalla.Text = Convert.ToString(num1 * num2);
+                    break;
+                case "/":
+                    // Alerta al dividir por cero
+                    if (num2 != 0)
+                    {
+                        txtPantalla.Text = Convert.ToString(num1 / num2);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede dividir por cero.");
+                    }
+                    break;
+            }
+            varTexto = txtPantalla.Text;
+            // Double VarResultado = btNum1
+            DialogResult result = MessageBox.Show("¿Desea continuar realizando operaciones?", "Continuar", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
             {
-                txtPantalla.Text = Convert.ToString(num1 / num2);
+                txtPantalla.Text = "Presione un Operador";
             }
             else
             {
-                MessageBox.Show("No se puede dividir por cero.");
-                //LimpiarDatos();
+                Close();
             }
-            break;
-            }
-            // Double VarResultado = btNum1 
         }
     }
 }
