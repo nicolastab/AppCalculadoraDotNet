@@ -46,6 +46,7 @@
             this.btNum0 = new System.Windows.Forms.Button();
             this.btPunto = new System.Windows.Forms.Button();
             this.btIgual = new System.Windows.Forms.Button();
+            this.txtResultados = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtPantalla
@@ -300,11 +301,23 @@
             this.btIgual.UseVisualStyleBackColor = false;
             this.btIgual.Click += new System.EventHandler(this.btIgual_Click);
             // 
+            // txtResultados
+            // 
+            this.txtResultados.Location = new System.Drawing.Point(5, 5);
+            this.txtResultados.Multiline = true;
+            this.txtResultados.Name = "txtResultados";
+            this.txtResultados.ReadOnly = true;
+            this.txtResultados.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResultados.Size = new System.Drawing.Size(258, 404);
+            this.txtResultados.TabIndex = 21;
+            this.txtResultados.Visible = false;
+            // 
             // FormCalculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(271, 415);
+            this.ClientSize = new System.Drawing.Size(267, 415);
+            this.Controls.Add(this.txtResultados);
             this.Controls.Add(this.btIgual);
             this.Controls.Add(this.btPunto);
             this.Controls.Add(this.btNum0);
@@ -353,6 +366,7 @@
         private System.Windows.Forms.Button btNum0;
         private System.Windows.Forms.Button btPunto;
         private System.Windows.Forms.Button btIgual;
+        private System.Windows.Forms.TextBox txtResultados;
     }
 }
 

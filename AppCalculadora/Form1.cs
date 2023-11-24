@@ -10,13 +10,11 @@ using System.Windows.Forms;
 
 namespace AppCalculadora
 {
-    public partial class FormCalculadora : Form
+    public partial class FormCalculadora : System.Windows.Forms.Form
     {
-        public Double num1;
-        public Double num2 = 0;
-        public string varOperador = "";
-        public string varTexto = "";
         public string varResultado = "";
+        public string varFormula = "";
+        public string varTexto = "";
 
         public FormCalculadora()
         {
@@ -29,7 +27,7 @@ namespace AppCalculadora
         }
         private void BotonNumero(string numero)
         {
-            if (txtPantalla.Text == "0" || txtPantalla.Text == "Ingrese otro número")
+            if (txtPantalla.Text == "0")
             {
                 txtPantalla.Text = Convert.ToString(numero);
             }
@@ -90,89 +88,75 @@ namespace AppCalculadora
 
         private void btPunto_Click(object sender, EventArgs e)
         {
-            bool varPunto = txtPantalla.Text.Contains(".");
-            if (!varPunto)
-            {
-                txtPantalla.Text += ".";
-            }
+            txtPantalla.Text += ".";
         }
 
         private void btClear_Click(object sender, EventArgs e)
         {
             txtPantalla.Clear();
             txtPantalla.Text = "0";
-            num1 = 0;
-            num2 = 0;
         }
-        private void SignoCalcular()
+
+        private void Operador(string operador)
         {
-            num1 = Convert.ToDouble(txtPantalla.Text);
-            txtPantalla.Clear();
-            txtPantalla.Text = "Ingrese otro número";
+            if (txtPantalla.Text.Contains("Presione"))
+            {
+                txtPantalla.Text = "";
+            }
+            txtPantalla.Text += $" {operador} ";
         }
+
         private void btSum_Click(object sender, EventArgs e)
         {
-            varOperador = "+";
-            SignoCalcular();
+            Operador("+");
         }
 
         private void btRest_Click(object sender, EventArgs e)
         {
-            varOperador = "-";
-            SignoCalcular();
+            Operador("-");
         }
 
         private void btMult_Click(object sender, EventArgs e)
         {
-            varOperador = "*";
-            SignoCalcular();
+            Operador("*");
         }
 
         private void btDiv_Click(object sender, EventArgs e)
         {
-            varOperador = "/";
-            SignoCalcular();
+            Operador("/");
         }
 
         private void btIgual_Click(object sender, EventArgs e)
         {
-            Convert.ToString(txtPantalla.Text);
-            double num2 = Convert.ToDouble(txtPantalla.Text);
-            switch (varOperador)
+            try
             {
-                case "+":
-                    txtPantalla.Text = Convert.ToString(num1 + num2);
-                    break;
-                case "-":
-                    txtPantalla.Text = Convert.ToString(num1 - num2);
-                    break;
-                case "*":
-                    txtPantalla.Text = Convert.ToString(num1 * num2);
-                    break;
-                case "/":
-                    // Alerta al dividir por cero
-                    if (num2 != 0)
-                    {
-                        txtPantalla.Text = Convert.ToString(num1 / num2);
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se puede dividir por cero.");
-                    }
-                    break;
+                string expresion = txtPantalla.Text;
+                expresion = $"{varResultado} {expresion}";
+                double resultado = Convert.ToDouble(new System.Data.DataTable().Compute(expresion, ""));
+                varFormula = txtPantalla.Text;
+                varResultado = Convert.ToString(resultado);
+                txtPantalla.Text = $"{varFormula}\r\n Resultado: {varResultado}";               
             }
-            varTexto = txtPantalla.Text;
-            // Double VarResultado = btNum1
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al realizar la operación: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+                               
             DialogResult result = MessageBox.Show("¿Desea continuar realizando operaciones?", "Continuar", MessageBoxButtons.YesNo);
 
             if (result == DialogResult.Yes)
             {
                 txtPantalla.Text = "Presione un Operador";
+                varTexto += $"{varFormula} = {varResultado}\r\n";
             }
-            else
-            {
-                Close();
-            }
+                else
+                {
+                varTexto += $"{varFormula} = {varResultado}\r\n";
+                txtResultados.Visible = true;
+                txtResultados.Text = varTexto;
+                }
         }
     }
 }
